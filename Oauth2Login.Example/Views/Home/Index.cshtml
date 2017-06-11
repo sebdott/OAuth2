@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Sign in with test page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Login</h2>
+<input type="button" value="Facebook" onclick="loginMethods.authFacebook()" />
+<input type="button" value="Twitter" onclick="loginMethods.authTwitter()" />
+<input type="button" value="Google" onclick="loginMethods.authGoogle()" />
+<input type="button" value="PayPal" onclick="loginMethods.authPayPal()" />
+@*<input type="button" value="Windows Live" onclick="loginMethods.authWindowsLive()" />*@
+<br />
+<script type="text/javascript">
+    // external login providers
+    var loginMethods = {
+        openWindow: function (url, name, iWidth, iHeight) {
+            var iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+            var iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
+            window.open(url, name, 'height=' + iHeight + ',innerHeight=' + iHeight + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft + ',toolbar=no,menubar=no,scrollbars=yes,resizeable=no,location=no,status=no');
+        },
+
+        authFacebook: function (mode) {
+            loginMethods.openWindow('/AuthExternal/Login/Facebook?mode=' + mode, '', 680, 340);
+        },
+
+        authTwitter: function (mode) {
+            loginMethods.openWindow('/AuthExternal/Login/Twitter?mode=' + mode, '', 680, 520);
+        },
+
+        authGoogle: function (mode) {
+            loginMethods.openWindow('/AuthExternal/Login/Google?mode=' + mode, '', 680, 520);
+        },
+
+        authPayPal: function (mode) {
+            loginMethods.openWindow('/AuthExternal/Login/PayPal?mode=' + mode, '', 400, 550);
+        },
+
+        handleRedirect: function (url) {
+            window.location = url;
+        }
+    };
+</script>

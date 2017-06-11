@@ -1,0 +1,31 @@
+﻿@model AuthCallbackResult
+
+@{
+    var loginSuccess = !String.IsNullOrEmpty(Model.RedirectUrl);
+    ViewBag.Title = loginSuccess ?
+        "Login Success, redirecting..." :
+        "Login Fail";
+    ViewBag.ContClass = "smaller";
+    ViewBag.NoHeaderFooter = true;
+}
+
+@if (loginSuccess)
+{
+    <div>
+        <script>
+            try {
+                top.window.opener.loginMethods.handleRedirect('@Html.Raw(Model.RedirectUrl)');
+            } catch (e) {
+                alert(e);
+                top.window.opener.location = '@Html.Raw(Model.RedirectUrl)';
+            }
+            window.close();
+        </script>
+    </div>
+}
+else
+{
+    <div>
+        <div>@Model.ErrorText</div>
+    </div>
+}
